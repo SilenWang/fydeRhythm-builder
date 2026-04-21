@@ -1,0 +1,24 @@
+[workspace]
+authors = ["Sylens Wong <qiumin14@163.com>"]
+channels = ["conda-forge"]
+name = "fydeRhythm-builder"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[environments]
+crx = ['crx']
+wasm = ['wasm']
+
+[feature.wasm.dependencies]
+nodejs = '14.*'
+
+[feature.crx.tasks]
+get-code = { cmd = 'rm -fr fydeRhythm-master && curl -L https://github.com/SilenWang/fydeRhythm/archive/refs/heads/master.tar.gz -o master.tar.gz && tar xvf master.tar.gz && rm -f master.tar.gz' }
+# 直接从官方项目获取编译的wasm，因为从头编译未成功
+get-wasm = { cmd = 'curl -L -o temp.zip https://github.com/FydeOS/fydeRhythm/releases/download/rel-2.1.5/FydeRhythm-rel-2.1.5.zip && unzip -j temp.zip "assets/rime_emscripten.wasm" "static/background/index.js" -d ./ && mv rime_emscripten.wasm fydeRhythm-master/assets/rime_emscripten.wasm && mv index.js fydeRhythm-master/background/rime_emscripten.js && rm temp.zip' }
+init = { cmd = 'pnpm install && npm install -g crx3', depends-on = ['get-code', 'get-wasm']}
+build = { cmd = 'crx3 build/chrome-mv3-prod -o fydeRhythm.crx' }
+
+[feature.crx.dependencies]
+nodejs = '18.*'
+pnpm = '*'

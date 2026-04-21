@@ -4,6 +4,8 @@ fydeRhythm 的构建脚本，参考内容包括：
 
 - fydeRhythm Wiki: [https://github.com/FydeOS/fydeRhythm/wiki/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B](https://github.com/FydeOS/fydeRhythm/wiki/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B)
 
+## fydeRhythm编译
+
 ## librime-wasm编译步骤
 
 **本部分内容暂未成功**，卡在glog。
