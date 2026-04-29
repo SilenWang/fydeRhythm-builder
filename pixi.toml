@@ -15,8 +15,10 @@ nodejs = '14.*'
 [feature.crx.tasks]
 # 使用git submodule获取代码
 get-code = { cmd = 'git submodule update --init --recursive fydeRhythm-dev' }
-# 切换到指定commit并更新submodule引用
-checkout-commit = { cmd = 'cd fydeRhythm-dev && git fetch origin dev && git checkout ${1} && cd .. && git add fydeRhythm-dev && git commit -m "update submodule to ${1}"' }
+# 仅切换到指定commit（用于测试，不更新submodule引用）
+checkout-commit = { cmd = 'cd fydeRhythm-dev && git fetch origin dev && git checkout ${1}' }
+# 更新submodule引用（在测试确认后使用）
+update-submodule = { cmd = 'git add fydeRhythm-dev && git commit -m "update submodule to commit ${1}"' }
 # 直接从官方项目获取编译的wasm，因为从头编译未成功
 get-wasm = { cmd = 'curl -L -o temp.zip https://github.com/FydeOS/fydeRhythm/releases/download/rel-2.1.5/FydeRhythm-rel-2.1.5.zip && unzip -j temp.zip "assets/rime_emscripten.wasm" "static/background/index.js" -d ./ && mv rime_emscripten.wasm fydeRhythm-dev/assets/rime_emscripten.wasm && mv index.js fydeRhythm-dev/background/rime_emscripten.js && rm temp.zip', depends-on = ['get-code'] }
 init = { cmd = 'pnpm install && npm install -g crx3', cwd = 'fydeRhythm-dev', depends-on = ['get-code', 'get-wasm']}
