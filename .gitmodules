@@ -1,0 +1,5 @@
+[submodule "fydeRhythm-dev"]
+	path = fydeRhythm-dev
+	url = https://github.com/SilenWang/fydeRhythm.git
+	branch = dev
+	track = all
